@@ -3,57 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAZ Studio | Profesyonel Tasarım Şablonları</title>
+    <title>PAZ Studio | Zenith</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
+
+    <div class="top-header-banner">
+        <img src="https://via.placeholder.com/1920x150/1a1a1a/00e5ff?text=Ust+Header+Gorseli+(1920x150)" alt="Header Banner" class="responsive-img">
+    </div>
+
+    <header class="main-header">
+        <div class="logo-container">
+            <img src="https://via.placeholder.com/200x200/050a1f/ffffff?text=PAZ+LOGO" alt="PAZ Studio Logo" class="site-logo">
+        </div>
         <nav>
-            <div class="logo">PAZ Studio</div>
             <ul class="nav-links">
-                <li><a href="#ana-sayfa">Ana Sayfa</a></li>
-                <li><a href="#sablonlar">Şablonlar</a></li>
+                <li><a href="#hakkimizda">Hakkımızda</a></li>
+                <li><a href="#projeler">Projeler</a></li>
                 <li><a href="#iletisim">İletişim</a></li>
             </ul>
         </nav>
     </header>
 
-    <section id="ana-sayfa" class="hero">
-        <div class="hero-content">
-            <h1>Yaratıcı Projelerin İçin Dijital Şablonlar</h1>
-            <p>Tasarımlarına hız kat, profesyonel kalitedeki şablonlarımızı keşfet.</p>
-            <a href="https://www.etsy.com/shop/..." class="cta-button" target="_blank">Mağazayı Ziyaret Et</a>
+    <section class="main-banner">
+        <img src="https://via.placeholder.com/1920x800/0a1128/00e5ff?text=Ana+Banner+-+Bulutlar+ve+Zirve+(1920x800)" alt="Zenith Summit" class="responsive-img">
+    </section>
+
+    <section id="hakkimizda" class="about-section">
+        <div class="about-container">
+            <div class="about-text">
+                <h2>Biz Kimiz?</h2>
+                <p>Zirve kadar keskin, atmosfer kadar derin projeler üreten bağımsız bir oyun stüdyosuyuz. PAZ Studio çatısı altında, oyuncuları benzersiz dünyaların ve gerilim dolu hikayelerin içine çekmeyi hedefliyoruz.</p>
+            </div>
+            <div class="about-image">
+                <img src="https://via.placeholder.com/800x600/111827/ffffff?text=Hakkimizda+Gorseli+(800x600)" alt="Hakkımızda Görseli" class="responsive-img">
+            </div>
         </div>
     </section>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script>
-    // Yeni bir zaman çizelgesi (timeline) oluşturuyoruz
-    const tl = gsap.timeline();
 
-    // 1. Üst Menü (Header) yukarıdan aşağıya yumuşakça insin
-    tl.from("header", {
-        y: -100,           // Y ekseninde -100 pikselden başla
-        opacity: 0,        // Tamamen şeffaf başla
-        duration: 1,       // Animasyon 1 saniye sürsün
-        ease: "power3.out" // Hızlı başlayıp sonlara doğru yavaşlayarak otursun
-    })
-    // 2. Logo ve Menü linkleri sırayla belirtsin (Stagger efekti)
-    .from(".logo, .nav-links li", {
-        y: -20,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,      // Her bir element 0.1 saniye arayla gelsin
-        ease: "power2.out"
-    }, "-=0.5")            // Bir önceki animasyon bitmeden 0.5 saniye önce başla (Geçişleri kaynaştır)
-    
-    // 3. Karşılama Alanı (Hero) yazıları ve buton aşağıdan süzülsün
-    .from(".hero-content h1, .hero-content p, .cta-button", {
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.2,
-        ease: "power3.out"
-    }, "-=0.5");
-</script>
+    <section id="projeler" class="gallery-section">
+        <h2>Geliştirme Aşamasından Kareler</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="https://via.placeholder.com/1920x1080/1f2937/00e5ff?text=Oyun+Ici+Kare+1" alt="Project Screenshot 1"></div>
+            <div class="gallery-item"><img src="https://via.placeholder.com/1920x1080/1f2937/00e5ff?text=Oyun+Ici+Kare+2" alt="Project Screenshot 2"></div>
+            <div class="gallery-item"><img src="https://via.placeholder.com/1920x1080/1f2937/00e5ff?text=Oyun+Ici+Kare+3" alt="Project Screenshot 3"></div>
+        </div>
+    </section>
+
+    <footer id="iletisim" class="main-footer">
+        <div class="footer-banner">
+            <img src="https://via.placeholder.com/1920x350/030712/00e5ff?text=Alt+Header+Gorseli+(1920x350)" alt="Footer Banner" class="responsive-img">
+            <div class="footer-content">
+                <p>Bizimle İletişime Geçin</p>
+                <div class="contact-links">
+                    <a href="https://instagram.com/..." target="_blank">Instagram</a>
+                    <a href="https://wa.me/..." target="_blank">WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        // Sayfa yüklendiğinde elemanların süzülerek gelmesi
+        const tl = gsap.timeline();
+        tl.from(".top-header-banner", { opacity: 0, y: -50, duration: 1, ease: "power3.out" })
+          .from(".main-header", { opacity: 0, y: -20, duration: 0.8 }, "-=0.5")
+          .from(".main-banner", { opacity: 0, scale: 1.05, duration: 1.5, ease: "power2.out" }, "-=0.8");
+    </script>
 </body>
 </html>
