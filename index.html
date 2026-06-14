@@ -25,6 +25,35 @@
             <a href="https://www.etsy.com/shop/..." class="cta-button" target="_blank">Mağazayı Ziyaret Et</a>
         </div>
     </section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script>
+    // Yeni bir zaman çizelgesi (timeline) oluşturuyoruz
+    const tl = gsap.timeline();
 
+    // 1. Üst Menü (Header) yukarıdan aşağıya yumuşakça insin
+    tl.from("header", {
+        y: -100,           // Y ekseninde -100 pikselden başla
+        opacity: 0,        // Tamamen şeffaf başla
+        duration: 1,       // Animasyon 1 saniye sürsün
+        ease: "power3.out" // Hızlı başlayıp sonlara doğru yavaşlayarak otursun
+    })
+    // 2. Logo ve Menü linkleri sırayla belirtsin (Stagger efekti)
+    .from(".logo, .nav-links li", {
+        y: -20,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,      // Her bir element 0.1 saniye arayla gelsin
+        ease: "power2.out"
+    }, "-=0.5")            // Bir önceki animasyon bitmeden 0.5 saniye önce başla (Geçişleri kaynaştır)
+    
+    // 3. Karşılama Alanı (Hero) yazıları ve buton aşağıdan süzülsün
+    .from(".hero-content h1, .hero-content p, .cta-button", {
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out"
+    }, "-=0.5");
+</script>
 </body>
 </html>
