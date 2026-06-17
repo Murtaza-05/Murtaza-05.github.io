@@ -102,6 +102,27 @@ body {
 }
 
 /* 5. Projeler / Galeri Bölümü */
+.gallery-section {
+    padding: 80px 50px;
+    background-color: #020617;
+    text-align: center;
+}
+
+.gallery-section h2 {
+    font-size: 2.5rem;
+    color: #00E5FF;
+    margin-bottom: 40px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* 5. Projeler / Galeri Bölümü */
 .gallery-item {
     /* Çerçeve ve yuvarlak köşe kodlarını sildik */
     overflow: hidden;
@@ -117,6 +138,13 @@ body {
 
 .gallery-item:hover {
     transform: scale(1.05); /* Üzerine gelince çerçeve yanmasın, sadece hafifçe büyüsün */
+}
+
+/* 6. Footer ve Alt Banner */
+.main-footer {
+    position: relative;
+    width: 100%;
+    margin-top: 50px;
 }
 
 /* 6. Footer ve İletişim */
