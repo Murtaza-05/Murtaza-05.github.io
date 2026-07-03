@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Murtaza Halaç - 3D Artist & Game Developer</title>
+    <style>
+        /* Genel Ayarlar ve Renk Paleti */
+        :root {
+            --bg-color: #0d1117;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent-color: #58a6ff;
+            --accent-hover: #1f6feb;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animasyonlar */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-up { animation: fadeInUp 1s ease-out forwards; }
+        .animate-down { animation: fadeInDown 1s ease-out forwards; }
+
+        /* Navigasyon */
+        nav {
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            background-color: rgba(13, 17, 23, 0.9);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover { color: var(--accent-color); }
+
+        /* Hero Bölümü */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid var(--accent-color);
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        /* İçerik Konteyneri */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h3 {
+            font-size: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            color: var(--accent-color);
+        }
+
+        /* Eğitim ve Deneyim Kartları */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            border-color: var(--accent-color);
+        }
+
+        .card h4 { font-size: 1.2rem; margin-bottom: 5px; }
+        .card .date { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px; display: block; }
+
+        /* Yetenekler */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .skill-tag {
+            background-color: var(--border-color);
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .skill-tag:hover { background-color: var(--accent-color); color: #fff; }
+
+        /* Galeri Bölümü */
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 8px 20px;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-color);
+            color: #fff;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            display: none; /* JS ile açılacak */
+        }
+
+        .gallery-item.show { display: block; animation: fadeInUp 0.5s ease; }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img { transform: scale(1.1); }
+
+        .item-info {
+            position: absolute;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            width: 100%;
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .item-info { transform: translateY(0); }
+
+        /* İletişim */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .contact-info a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">PAZ STUDIO</div>
+        <a href="/index.html">Ana Sayfaya Dön</a>
+    </nav>
+
+    <header class="hero animate-down">
+        <!-- Profil fotoğrafının yolunu buraya ekleyebilirsin -->
+        <img src="profil_resmi.jpg" alt="Murtaza Halaç">
+        <h1>Murtaza Halaç</h1>
+        <h2>3D Artist & Game Developer</h2>
+        <p>Bilgisayar Destekli Tasarım ve Animasyon öğrencisiyim[cite: 1]. 3D modelleme ve oyun motoru entegrasyonu alanlarında sürükleyici dünyalar inşa ediyorum[cite: 1].</p>
+    </header>
+
+    <div class="container animate-up">
+        
+        <!-- Yetenekler -->
+        <h3>Teknik Cephanelik</h3>
+        <div class="skills-grid">
+            <div class="skill-tag">Blender</div>
+            <div class="skill-tag">Godot Engine</div>
+            <div class="skill-tag">Unity</div>
+            <div class="skill-tag">C#</div>
+            <div class="skill-tag">HTML & CSS</div>
+            <div class="skill-tag">İkas & E-Ticaret</div>
+        </div>
+
+        <!-- Deneyim -->
+        <h3>İş ve Proje Deneyimi</h3>
+        <div class="card">
+            <h4>3D Artist & Developer (Stajyer)</h4>
+            <span class="date">Peaktry | Tamamlandı</span>
+            <p>Oyun geliştirme ve tasarım süreçlerinde profesyonel staj deneyimi.</p>
+        </div>
+        <div class="card">
+            <h4>E-Ticaret Altyapı ve Web Yönetimi</h4>
+            <span class="date">Freelance | Günümüz</span>
+            <p>İkas platformu üzerinden mağaza kurulumu, PayTR entegrasyonu, DNS ve SSL sertifikasyon süreçlerinin uçtan uca yönetimi (Heptech Mobile, vb.).</p>
+        </div>
+        <div class="card">
+            <h4>3D Modelleme Projesi</h4>
+            <span class="date">Bandırma 17 Eylül Üniversitesi[cite: 1]</span>
+            <p>Okulun iç ve dış mekânlarının detaylı 3D modellemesini içeren projede aktif rol aldım. Blender kullanarak sandalye, kalorifer peteği ve klima gibi objelerin modellemesini, ölçek ve doku entegrasyonunu gerçekleştirdim[cite: 1].</p>
+        </div>
+        <div class="card">
+            <h4>Tezgâhtar</h4>
+            <span class="date">Hoşgör Pastanesi | Kocaeli, İzmit | Tem 2024 - Ağu 2025[cite: 1]</span>
+            <p>Kasiyerlik, garsonluk, tezgâhtarlık ve baristalık görevlerini üstlenerek müşteri ilişkileri ve operasyonel hız konularında tecrübe edindim[cite: 1].</p>
+        </div>
+
+        <!-- Eğitim -->
+        <h3>Eğitim</h3>
+        <div class="card">
+            <h4>Bandırma 17 Eylül Üniversitesi Gönen Meslek Yüksek Okulu[cite: 1]</h4>
+            <span class="date">Bilgisayar Destekli Tasarım ve Animasyon Bölümü[cite: 1]</span>
+        </div>
+
+        <!-- Galeri / Portfolyo -->
+        <h3>Projeler Galerisi</h3>
+        <div class="gallery-filters">
+            <button class="filter-btn active" onclick="filterGallery('all')">Tümü</button>
+            <button class="filter-btn" onclick="filterGallery('oyun')">Oyun Geliştirme</button>
+            <button class="filter-btn" onclick="filterGallery('tasarim')">3D Tasarım</button>
+            <button class="filter-btn" onclick="filterGallery('web')">Web & E-Ticaret</button>
+        </div>
+
+        <div class="gallery-grid">
+            <!-- Oyun Projesi Örneği -->
+            <div class="gallery-item oyun show">
+                <!-- Buraya Harper's Hell görseli gelecek -->
+                <img src="harpers_hell_kapak.jpg" alt="Harper's Hell">
+                <div class="item-info">
+                    <h4>Harper's Hell</h4>
+                    <p>Godot Engine ile geliştirilen bağımsız korku oyunu projesi.</p>
+                </div>
+            </div>
+            
+            <!-- Tasarım Projesi Örneği -->
+            <div class="gallery-item tasarim show">
+                <!-- Buraya Blender render görseli gelecek -->
+                <img src="blender_render.jpg" alt="Blender 3D Model">
+                <div class="item-info">
+                    <h4>Çatı Mekanizması Modellemesi</h4>
+                    <p>Blender ile hazırlanan detaylı çevre ve obje tasarımı.</p>
+                </div>
+            </div>
+
+            <!-- Web Projesi Örneği -->
+            <div class="gallery-item web show">
+                <!-- Buraya Site görseli gelecek -->
+                <img src="heptech_site.jpg" alt="Heptech Mobile">
+                <div class="item-info">
+                    <h4>E-Ticaret Entegrasyonu</h4>
+                    <p>İkas altyapısı ile kurulan tam donanımlı mağaza sistemi.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- İletişim -->
+        <h3 style="margin-top: 50px;">Bağlantılar</h3>
+        <div class="contact-info card">
+            <p><strong>Konum:</strong> Kocaeli, İzmit[cite: 1]</p>
+            <p><strong>E-Posta:</strong> <a href="mailto:murtazahalac05@gmail.com">murtazahalac05@gmail.com</a>[cite: 1]</p>
+            <p><strong>Telefon:</strong> 0552 732 41 46[cite: 1]</p>
+            <p><strong>ArtStation:</strong> <a href="https://murtaza_05.artstation.com/" target="_blank">murtaza_05.artstation.com</a>[cite: 1]</p>
+        </div>
+
+    </div>
+
+    <script>
+        // Galeri Filtreleme Sistemi
+        function filterGallery(category) {
+            // Buton aktiflik durumunu güncelle
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Görselleri filtrele
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.classList.add('show');
+                } else {
+                    item.classList.remove('show');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
