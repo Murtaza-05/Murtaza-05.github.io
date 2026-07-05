@@ -6,6 +6,7 @@
     <title>Murtaza Halaç - 3D Artist & Game Developer</title>
     <link rel="icon" type="image/png" href="images/faviconn.png">
     
+    <!-- İkonlar için FontAwesome Kütüphanesi -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -70,33 +71,72 @@
 
         nav a:hover { color: var(--accent-color); }
 
-        /* Hero Bölümü */
+        /* HERO BÖLÜMÜ - YENİ ANİMASYONLU TASARIM */
         .hero {
+            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            padding: 100px 20px;
+            padding: 120px 20px 80px 20px;
+            z-index: 1;
         }
 
+        /* Hareketli Siber Izgara Arka Planı */
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(88, 166, 255, 0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(88, 166, 255, 0.07) 1px, transparent 1px);
+            background-size: 40px 40px;
+            /* Izgaranın aşağı doğru yumuşakça kaybolmasını sağlar */
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(40px); } /* Arka plan sonsuz akış hissiyatı verir */
+        }
+
+        /* Profil Fotoğrafı - Nefes Alan Neon Parlama */
         .hero img {
-            width: 150px;
-            height: 150px;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
             border: 3px solid var(--accent-color);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             object-fit: cover;
+            animation: glowPulse 3s infinite alternate;
         }
 
+        @keyframes glowPulse {
+            0% { box-shadow: 0 0 15px rgba(88, 166, 255, 0.2); }
+            100% { box-shadow: 0 0 40px rgba(88, 166, 255, 0.7); }
+        }
+
+        /* Gradient (Renk Geçişli) Ana Başlık */
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 10px;
+            background: linear-gradient(135deg, #ffffff 0%, #58a6ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
         }
 
         .hero h2 {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: var(--text-muted);
             margin-bottom: 20px;
+            font-weight: 400;
+            letter-spacing: 1px;
         }
 
         /* İçerik Konteyneri */
@@ -114,7 +154,7 @@
             color: var(--accent-color);
         }
 
-        /* Eğitim ve Deneyim Kartları */
+        /* Kartlar */
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -132,8 +172,10 @@
 
         .card h4 { font-size: 1.2rem; margin-bottom: 5px; }
         .card .date { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px; display: block; }
+        .card p { margin-bottom: 10px; }
+        .card p:last-child { margin-bottom: 0; }
 
-        /* Yetenekler - GÜNCELLENMİŞ MAVİ KUTULAR */
+        /* Yetenekler */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -231,7 +273,7 @@
 
         .gallery-item:hover .item-info { transform: translateY(0); }
 
-        /* LIGHTBOX (BÜYÜTÜLMÜŞ GÖRSEL) SİSTEMİ */
+        /* LIGHTBOX */
         #lightbox {
             display: none;
             position: fixed;
@@ -309,21 +351,23 @@
         <a href="/index.html">Ana Sayfaya Dön</a>
     </nav>
 
+    <!-- ANİMASYONLU YENİ GİRİŞ BÖLÜMÜ -->
     <header class="hero animate-down">
+        <div class="hero-bg"></div>
         <img src="images/profilphoto.png" alt="Murtaza Halaç">
         <h1>Murtaza Halaç</h1>
-        <h2>3D Artist + Game Developer + Grafic Designer + Web Developer</h2>
-
-        <h3>Hakkımda</h3>
-        <div class="card">
-            <p>Merhaba, ben Murtaza Halaç. 3D tasarım ve oyun geliştirme alanlarında çalışıyorum. Bunun yanı sıra, web geliştirme ve grafik tasarım ve animasyon konularında da çalışmalar yapmaktayım. İlgi duyduğum alanlara karşı çok büyük bir öğrenme iştahına sahibim. </p>
-            <p>Öğrenme sürecinde e-ticaret altyapılarından (İkas, PayTR) kullanıcı deneyimi (UI/UX) tasarımına kadar dijital dünyanın farklı cephelerinde aktif olarak projeler üretiyorum. Edindiğim profesyonel staj tecrübeleri ve farklı disiplinleri (web, 3D, yazılım,grafik tasarım) bir araya getirme yeteneğim sayesinde, karşılaştığım problemlere yaratıcı ve çalışan çözümler üretiyorum. Kısacası, bir projenin hem görünümünü tasarlıyor hem de motorunu inşa ediyorum.</p>
-        </div>
-
+        <h2>3D Artist • Game Developer • Graphic Designer • Web Developer</h2>
     </header>
 
     <div class="container animate-up">
         
+        <!-- HAKKIMDA BÖLÜMÜ BURAYA TAŞINDI -->
+        <h3>Hakkımda</h3>
+        <div class="card">
+            <p>Merhaba, ben Murtaza Halaç. 3D tasarım ve oyun geliştirme alanlarında çalışıyorum. Bunun yanı sıra, web geliştirme, grafik tasarım ve animasyon konularında da çalışmalar yapmaktayım. İlgi duyduğum alanlara karşı çok büyük bir öğrenme iştahına sahibim.</p>
+            <p>Öğrenme sürecinde e-ticaret altyapılarından (İkas, PayTR) kullanıcı deneyimi (UI/UX) tasarımına kadar dijital dünyanın farklı cephelerinde aktif olarak projeler üretiyorum. Edindiğim profesyonel staj tecrübeleri ve farklı disiplinleri (web, 3D, yazılım, grafik tasarım) bir araya getirme yeteneğim sayesinde, karşılaştığım problemlere yaratıcı ve çalışan çözümler üretiyorum. Kısacası, bir projenin hem görünümünü tasarlıyor hem de motorunu inşa ediyorum.</p>
+        </div>
+
         <h3>Teknik Beceriler</h3>
         <div class="skills-grid">
             <div class="skill-tag">Blender</div>
