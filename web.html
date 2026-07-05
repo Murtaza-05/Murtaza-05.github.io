@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Murtaza Halaç - 3D Artist & Game Developer</title>
+    <link rel="icon" type="image/png" href="images/faviconn.png">
+    <style>
+        /* Genel Ayarlar ve Renk Paleti */
+        :root {
+            --bg-color: #0d1117;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent-color: #58a6ff;
+            --accent-hover: #1f6feb;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animasyonlar */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-up { animation: fadeInUp 1s ease-out forwards; }
+        .animate-down { animation: fadeInDown 1s ease-out forwards; }
+
+        /* Navigasyon */
+        nav {
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            background-color: rgba(13, 17, 23, 0.9);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover { color: var(--accent-color); }
+
+        /* Hero Bölümü */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid var(--accent-color);
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        /* İçerik Konteyneri */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h3 {
+            font-size: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            color: var(--accent-color);
+        }
+
+        /* Eğitim ve Deneyim Kartları */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            border-color: var(--accent-color);
+        }
+
+        .card h4 { font-size: 1.2rem; margin-bottom: 5px; }
+        .card .date { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px; display: block; }
+
+        /* Yetenekler - GÜNCELLENMİŞ MAVİ KUTULAR */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .skill-tag {
+            background-color: rgba(88, 166, 255, 0.1); /* Hafif transparan mavi arka plan */
+            border: 1px solid var(--accent-color); /* Mavi çerçeve */
+            color: var(--accent-color); /* Mavi metin */
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px; /* Köşeler hafif yuvarlak */
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .skill-tag:hover { 
+            background-color: var(--accent-color); 
+            color: #fff; 
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(88, 166, 255, 0.3); /* Parlama efekti */
+        }
+
+        @media (max-width: 768px) {
+            .skills-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 480px) {
+            .skills-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* Galeri Bölümü */
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 8px 20px;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-color);
+            color: #fff;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            display: none; 
+        }
+
+        .gallery-item.show { display: block; animation: fadeInUp 0.5s ease; }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px; /* Görsellerin daha ihtişamlı durması için 250px yapıldı */
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s;
+            cursor: pointer; /* Üzerine gelince tıklanabilir el işareti çıkar */
+        }
+
+        .gallery-item:hover img { transform: scale(1.1); }
+
+        .item-info {
+            position: absolute;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            width: 100%;
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+            pointer-events: none; /* Metin kutusu tıklamayı engellemesin diye */
+        }
+
+        .gallery-item:hover .item-info { transform: translateY(0); }
+
+        /* LIGHTBOX (BÜYÜTÜLMÜŞ GÖRSEL) SİSTEMİ */
+        #lightbox {
+            display: none; /* Varsayılan olarak gizli */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(13, 17, 23, 0.85); /* Sitenin temasına uygun koyu arka plan */
+            backdrop-filter: blur(10px); /* Arka planı bulanıklaştırma */
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        #lightbox.active img {
+            transform: scale(1);
+        }
+
+        /* İletişim */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .contact-info a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">PAZ STUDIO</div>
+        <a href="/index.html">Ana Sayfaya Dön</a>
+    </nav>
+
+    <header class="hero animate-down">
+        <img src="images/profilphoto.png" alt="Murtaza Halaç">
+        <h1>Murtaza Halaç</h1>
+        <h2>3D Artist + Game Developer + Grafic Designer + Web Developer</h2>
+        </header>
+        
+
+        <h3>Projeler Galerisi</h3>
+       <div class="gallery-filters">
+            <!-- Şu an Tümü sayfasında olduğumuz için bu buton "active" (mavi) kalıyor -->
+            <a href="portfolio.html" class="filter-btn active" style="text-decoration: none; display: inline-block;">Tümü</a>
+            
+            <!-- Diğerleri bizi yeni yaratacağımız sayfalara atacak -->
+            <a href="oyun.html" class="filter-btn" style="text-decoration: none; display: inline-block;">Oyun Geliştirme</a>
+            <a href="tasarim.html" class="filter-btn" style="text-decoration: none; display: inline-block;">3D Tasarım</a>
+            <a href="web.html" class="filter-btn" style="text-decoration: none; display: inline-block;">Web & E-Ticaret</a>
+        </div>
+
+        <div class="gallery-item show">
+                <!-- Resmin yolunu buraya yazıyorsun -->
+                <img src="images/paz-tasarim1.png" alt="Harper's Hell Otel Tasarımı">
+                
+                <!-- Üzerine gelince çıkan siyah bilgi kutusu -->
+                <div class="item-info">
+                    <h4>Otel Atmosferi</h4>
+                    <p>Harper's Hell projesi için Blender ile oluşturulmuş 3D model.</p>
+                </div>
+            </div>
+            <div class="gallery-item show">
+                <!-- Resmin yolunu buraya yazıyorsun -->
+                <img src="images/paz-tasarim1.png" alt="Harper's Hell Otel Tasarımı">
+                
+                <!-- Üzerine gelince çıkan siyah bilgi kutusu -->
+                <div class="item-info">
+                    <h4>Otel Atmosferi</h4>
+                    <p>Harper's Hell projesi için Blender ile oluşturulmuş 3D model.</p>
+                </div>
+            </div>
+            <div class="gallery-item show">
+                <!-- Resmin yolunu buraya yazıyorsun -->
+                <img src="images/paz-tasarim1.png" alt="Harper's Hell Otel Tasarımı">
+                
+                <!-- Üzerine gelince çıkan siyah bilgi kutusu -->
+                <div class="item-info">
+                    <h4>Otel Atmosferi</h4>
+                    <p>Harper's Hell projesi için Blender ile oluşturulmuş 3D model.</p>
+                </div>
+            </div>
+
+    
+        <h3 style="margin-top: 50px;">Bağlantılar</h3>
+        <div class="contact-info card">
+            <p><strong>Konum:</strong> Kocaeli, İzmit </p>
+            <p><strong>Telefon:</strong> 0552 732 41 46 </p>
+            <p><strong>E-Posta:</strong> <a href="mailto:murtazahalac05@gmail.com">murtazahalac05@gmail.com</a> </p>
+            <p><strong>ArtStation:</strong> <a href="https://murtaza_05.artstation.com/" target="_blank">murtaza_05.artstation.com</a> </p>
+        </div>
+
+    </div>
+
+    <div id="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="Büyütülmüş Görsel">
+    </div>
+
+    <script>
+        // Galeri Filtreleme Sistemi
+        function filterGallery(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.classList.add('show');
+                } else {
+                    item.classList.remove('show');
+                }
+            });
+        }
+
+        // Lightbox (Görsel Büyütme) Sistem
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        // Galerideki tüm görselleri bul ve tıklanma özelliği ekle
+        document.querySelectorAll('.gallery-item img').forEach(image => {
+            image.addEventListener('click', function() {
+                lightboxImg.src = this.src; // Tıklanan resmin kaynağını tam ekran yap
+                lightbox.classList.add('active'); // Karanlık arkaplanı göster
+            });
+        });
+
+        // Ekrana tıklandığında büyütülmüş görseli kapat
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+        }
+    </script>
+</body>
+</html>

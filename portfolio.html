@@ -343,11 +343,14 @@
         </div>
 
         <h3>Projeler Galerisi</h3>
-        <div class="gallery-filters">
-            <button class="filter-btn active" onclick="filterGallery('all')">Tümü</button>
-            <button class="filter-btn" onclick="filterGallery('oyun')">Oyun Geliştirme</button>
-            <button class="filter-btn" onclick="filterGallery('tasarim')">3D Tasarım</button>
-            <button class="filter-btn" onclick="filterGallery('web')">Web & E-Ticaret</button>
+       <div class="gallery-filters">
+            <!-- Şu an Tümü sayfasında olduğumuz için bu buton "active" (mavi) kalıyor -->
+            <a href="portfolio.html" class="filter-btn active" style="text-decoration: none; display: inline-block;">Tümü</a>
+            
+            <!-- Diğerleri bizi yeni yaratacağımız sayfalara atacak -->
+            <a href="oyun.html" class="filter-btn" style="text-decoration: none; display: inline-block;">Oyun Geliştirme</a>
+            <a href="tasarim.html" class="filter-btn" style="text-decoration: none; display: inline-block;">3D Tasarım</a>
+            <a href="web.html" class="filter-btn" style="text-decoration: none; display: inline-block;">Web & E-Ticaret</a>
         </div>
 
         <div class="gallery-grid">
