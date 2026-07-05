@@ -94,7 +94,6 @@
                 linear-gradient(rgba(88, 166, 255, 0.07) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(88, 166, 255, 0.07) 1px, transparent 1px);
             background-size: 40px 40px;
-            /* Izgaranın aşağı doğru yumuşakça kaybolmasını sağlar */
             mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
             -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
             animation: moveGrid 20s linear infinite;
@@ -102,7 +101,7 @@
 
         @keyframes moveGrid {
             0% { transform: translateY(0); }
-            100% { transform: translateY(40px); } /* Arka plan sonsuz akış hissiyatı verir */
+            100% { transform: translateY(40px); }
         }
 
         /* Profil Fotoğrafı - Nefes Alan Neon Parlama */
@@ -146,15 +145,17 @@
             padding: 40px 20px;
         }
 
+        /* BAŞLIKLAR (H3) - ORTALANDI */
         h3 {
             font-size: 2rem;
             border-bottom: 2px solid var(--border-color);
             padding-bottom: 10px;
             margin-bottom: 30px;
             color: var(--accent-color);
+            text-align: center; /* Başlıklar ortalandı */
         }
 
-        /* Kartlar */
+        /* KARTLAR - METİNLER ORTALANDI */
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -162,6 +163,7 @@
             padding: 20px;
             margin-bottom: 20px;
             transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center; /* Kart içindeki metinler ortalandı */
         }
 
         .card:hover {
@@ -269,6 +271,7 @@
             transform: translateY(100%);
             transition: transform 0.3s;
             pointer-events: none;
+            text-align: left; /* Galeri bilgi kutusunun sol hizalı kalması fotoğraf üstünde daha iyi durur */
         }
 
         .gallery-item:hover .item-info { transform: translateY(0); }
@@ -361,7 +364,6 @@
 
     <div class="container animate-up">
         
-        <!-- HAKKIMDA BÖLÜMÜ BURAYA TAŞINDI -->
         <h3>Hakkımda</h3>
         <div class="card">
             <p>Merhaba, ben Murtaza Halaç. 3D tasarım ve oyun geliştirme alanlarında çalışıyorum. Bunun yanı sıra, web geliştirme, grafik tasarım ve animasyon konularında da çalışmalar yapmaktayım. İlgi duyduğum alanlara karşı çok büyük bir öğrenme iştahına sahibim.</p>
@@ -441,12 +443,12 @@
                 <img src="images/dortlusite.png" alt="Heptech Mobile">
                 <div class="item-info">
                     <h4>E-Ticaret Entegrasyonu</h4>
-                    <p>İkas altyapısı ile kurulan tam donanımlı mağaza sistemi. </p>
+                    <p>İkas altyapısı ile kurulan tam donanımlı mağaza sistemi.</p>
                 </div>
             </div>
         </div>
 
-        <center><h3 style="margin-top: 60px;">Bağlantılar</h3></center>
+        <h3 style="margin-top: 60px;">Bağlantılar</h3>
         <div class="contact-grid">
             <a href="#" class="contact-tag">
                 <i class="fas fa-map-marker-alt"></i>
