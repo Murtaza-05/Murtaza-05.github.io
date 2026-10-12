@@ -15,7 +15,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #000000; /* Zifiri karanlık arka plan */
+            background-color: #000000; /* Tam siyah, resmin arka planıyla kusursuz birleşmesi için */
             z-index: 99999;
             display: flex;
             justify-content: center;
@@ -24,12 +24,11 @@
             pointer-events: none;
         }
 
-        /* Doğrudan senin görselini kullanıyoruz */
+        /* Çerçeve sorununu yaratan "filter" kodu buradan tamamen silindi! */
         .anime-eyes-img {
-            max-width: 80%; /* Mobilde ekrandan taşmaması için */
-            width: 500px; /* Bilgisayarda çok devasa olmaması için ideal boyut */
+            max-width: 90%; /* Mobilde ekrandan taşmaması için */
+            width: 650px; /* Bilgisayarda daha görkemli durması için boyutu büyütüldü */
             opacity: 0; /* Başlangıçta karanlıkta gizli */
-            filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.3)); /* Etrafına çok hafif kırmızı karanlık bir parlama */
         }
 
         .site-content {
