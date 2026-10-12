@@ -15,7 +15,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #030000; /* Zifiri karanlık, çok hafif kan kırmızı alt ton */
+            background-color: #000000; /* Zifiri karanlık arka plan */
             z-index: 99999;
             display: flex;
             justify-content: center;
@@ -24,26 +24,12 @@
             pointer-events: none;
         }
 
-        .eyes-container {
-            display: flex;
-            gap: 20px; 
-            opacity: 0; 
-        }
-
-        /* SVG Göz Konteyneri ve Parlama Efekti */
-        .eye-box {
-            width: 250px;
-            height: 120px;
-            filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.7)) drop-shadow(0 0 30px rgba(150, 0, 0, 0.4));
-            transform-origin: center;
-        }
-
-        /* MOBİL UYUM (Responsive) */
-        @media (max-width: 768px) {
-            .eyes-container {
-                transform: scale(0.45); /* Mobilde ekran dışına taşmaması için mükemmel oran */
-                gap: 10px;
-            }
+        /* Doğrudan senin görselini kullanıyoruz */
+        .anime-eyes-img {
+            max-width: 80%; /* Mobilde ekrandan taşmaması için */
+            width: 500px; /* Bilgisayarda çok devasa olmaması için ideal boyut */
+            opacity: 0; /* Başlangıçta karanlıkta gizli */
+            filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.3)); /* Etrafına çok hafif kırmızı karanlık bir parlama */
         }
 
         .site-content {
@@ -53,67 +39,9 @@
 </head>
 <body>
 
-    <!-- SİNEMATİK ANİME GÖZLERİ (SVG ÇİZİMİ) -->
+    <!-- SİNEMATİK ANİME GÖZLERİ (SENİN GÖRSELİN) -->
     <div id="intro-screen">
-        <div class="eyes-container">
-            
-            <!-- Sol Göz -->
-            <div class="eye-box">
-                <svg viewBox="0 0 250 120" width="100%" height="100%">
-                    <defs>
-                        <!-- Gözün içindeki o kan kırmızısı renk geçişi -->
-                        <radialGradient id="iris" cx="50%" cy="50%" r="50%">
-                            <stop offset="0%" stop-color="#ff3333" />
-                            <stop offset="60%" stop-color="#990000" />
-                            <stop offset="100%" stop-color="#220000" />
-                        </radialGradient>
-                        <clipPath id="clip-left">
-                            <path d="M 10 70 Q 125 10 240 90 Q 125 80 10 70 Z" />
-                        </clipPath>
-                    </defs>
-                    <!-- Göz Akı (Karanlık) -->
-                    <path d="M 10 70 Q 125 10 240 90 Q 125 80 10 70 Z" fill="#110505" stroke="#330000" stroke-width="2"/>
-                    
-                    <g clip-path="url(#clip-left)">
-                        <!-- İris -->
-                        <circle cx="150" cy="55" r="30" fill="url(#iris)" />
-                        <!-- Yuvarlak Göz Bebeği -->
-                        <circle cx="150" cy="55" r="9" fill="#000" />
-                        <!-- Beyaz Işık Yansıması -->
-                        <circle cx="143" cy="48" r="3.5" fill="#fff" opacity="0.85" />
-                        
-                        <!-- Göz kapağından düşen karanlık gölge (Derinlik katar) -->
-                        <path d="M 0 0 L 250 0 L 250 45 Q 125 25 0 45 Z" fill="rgba(0,0,0,0.7)" />
-                    </g>
-                </svg>
-            </div>
-
-            <!-- Sağ Göz -->
-            <div class="eye-box">
-                <svg viewBox="0 0 250 120" width="100%" height="100%">
-                    <defs>
-                        <clipPath id="clip-right">
-                            <path d="M 240 70 Q 125 10 10 90 Q 125 80 240 70 Z" />
-                        </clipPath>
-                    </defs>
-                    <!-- Göz Akı (Karanlık) -->
-                    <path d="M 240 70 Q 125 10 10 90 Q 125 80 240 70 Z" fill="#110505" stroke="#330000" stroke-width="2"/>
-                    
-                    <g clip-path="url(#clip-right)">
-                        <!-- İris -->
-                        <circle cx="100" cy="55" r="30" fill="url(#iris)" />
-                        <!-- Yuvarlak Göz Bebeği -->
-                        <circle cx="100" cy="55" r="9" fill="#000" />
-                        <!-- Beyaz Işık Yansıması -->
-                        <circle cx="93" cy="48" r="3.5" fill="#fff" opacity="0.85" />
-                        
-                        <!-- Göz kapağından düşen karanlık gölge -->
-                        <path d="M 0 0 L 250 0 L 250 45 Q 125 25 0 45 Z" fill="rgba(0,0,0,0.7)" />
-                    </g>
-                </svg>
-            </div>
-
-        </div>
+        <img src="images/Gojos-eyes.png" alt="Karanlık Gözler" class="anime-eyes-img">
     </div>
 
     <!-- ASIL SİTE İÇERİĞİ -->
@@ -175,31 +103,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     
     <script>
-        // Gözler başlangıçta ince bir çizgi (kapalı) olarak ayarlanır
-        gsap.set(".eye-box", { scaleY: 0.02 });
-
         const introTl = gsap.timeline();
 
-        // 1. Zifiri karanlıkta parlayan ince kırmızı çizgiler yavaşça belirir
-        introTl.to(".eyes-container", { opacity: 1, duration: 0.5, ease: "power1.inOut", delay: 0.2 })
+        // 1. Zifiri karanlıkta senin görselin pürüzsüzce belirir
+        introTl.to(".anime-eyes-img", { opacity: 1, duration: 1.5, ease: "power2.inOut", delay: 0.3 })
         
-        // 2. Gözler pürüzsüz ve ağırbaşlı bir şekilde açılır
-        .to(".eye-box", { scaleY: 1, duration: 1.2, ease: "power3.inOut" })
+        // 2. Tehditkâr bir şekilde çok yavaşça ekrana doğru yaklaşır (Büyür)
+        .to(".anime-eyes-img", { scale: 1.1, duration: 3, ease: "sine.inOut" }, "-=1")
         
-        // 3. Hedefe kilitlenmiş gibi tehlikeli ve kısık bir bakışa geçer
-        .to(".eye-box", { scaleY: 0.45, duration: 1.2, ease: "power2.inOut", delay: 0.4 })
-        
-        // 4. Karanlığa gömülüp eriyerek kaybolurlar
-        .to(".eyes-container", { opacity: 0, duration: 0.8, ease: "power2.in", delay: 0.2 })
+        // 3. Karanlığa gömülüp eriyerek kaybolur
+        .to(".anime-eyes-img", { opacity: 0, duration: 1, ease: "power2.inOut" }, "-=1")
         .to("#intro-screen", { opacity: 0, duration: 1.2, ease: "power2.inOut" })
         
-        // 5. Ana site karanlığın içinden aydınlanarak süzülür
+        // 4. Ana site karanlığın içinden aydınlanarak süzülür
         .to(".site-content", { opacity: 1, duration: 1 }, "-=0.8") 
         .from(".top-header-banner", { opacity: 0, y: -30, duration: 1.2, ease: "power2.out" }, "-=0.5")
         .from(".main-header", { opacity: 0, y: -20, duration: 1 }, "-=0.8")
         .from(".main-banner", { opacity: 0, scale: 1.02, duration: 1.5, ease: "power2.out" }, "-=1")
         
-        // Animasyon bittiğinde tıklanabilirliği engellememesi için siyah perdeyi tamamen sil
+        // Animasyon bittiğinde siyah perdeyi tamamen sil
         .add(() => { document.getElementById("intro-screen").style.display = "none"; });
     </script>
 </body>
