@@ -6,69 +6,161 @@
     <title>PAZ Studio | Zenith</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="images/faviconn.png">
+    
+    <style>
+        /* SİNETMATİK AÇILIŞ (INTRO) EKRANI CSS KODLARI */
+        
+        /* 1. Siyah Perde */
+        #intro-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000000; /* Tam siyah */
+            z-index: 9999; /* Her şeyin üstünde */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            pointer-events: none; /* Animasyon bitince tıklamaları engellemesin */
+        }
+
+        /* 2. Gözlerin Konteyneri */
+        .eyes-container {
+            display: flex;
+            gap: 40px; /* İki göz arasındaki mesafe */
+            opacity: 0; /* Başlangıçta görünmez (GSAP ile açılacak) */
+        }
+
+        /* 3. Kırmızı Göz Tasarımı (Sadece CSS ile) */
+        .eye {
+            width: 100px;
+            height: 20px; /* Başlangıçta ince bir çizgi (kısık) */
+            background-color: #ff0000; /* Şeytani kırmızı */
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; /* Badem/Yaratık gözü şekli */
+            box-shadow: 
+                0 0 20px #ff0000, 
+                0 0 40px #ff0000, 
+                inset 0 0 10px #000000; /* İçeriden dışarıya parlama ve derinlik */
+            position: relative;
+            transform-origin: center;
+        }
+
+        /* Göz Bebeği (İsteğe bağlı, daha korkunç bir detay) */
+        .eye::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 15px;
+            height: 100%;
+            background-color: #000; /* Siyah, kedi gibi dikey göz bebeği */
+            border-radius: 50%;
+            box-shadow: 0 0 5px #ff0000;
+        }
+
+        /* Sitenin asıl içeriği intro bitene kadar görünmesin diye */
+        .site-content {
+            opacity: 0;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="top-header-banner">
-        <img src="images/paz-header.png" alt="Header Banner" class="responsive-img">
+    <!-- SİNEMATİK AÇILIŞ (INTRO) EKRANI -->
+    <div id="intro-screen">
+        <div class="eyes-container">
+            <div class="eye left-eye"></div>
+            <div class="eye right-eye"></div>
+        </div>
     </div>
 
-    <header class="main-header">
-        <div class="logo-container">
-            <img src="images/paz-logo-beyaz.png" alt="PAZ Studio Logo" class="site-logo">
+    <!-- ASIL SİTE İÇERİĞİ (Intro bitince belirecek) -->
+    <div class="site-content">
+        <div class="top-header-banner">
+            <img src="images/paz-header.png" alt="Header Banner" class="responsive-img">
         </div>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="#hakkimizda">Hakkımızda</a></li>
-                <li><a href="#projeler">Projeler</a></li>
-                <li><a href="/murtaza-halac">Geliştirici</a></li>
-                <li><a href="#iletisim">İletişim</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <section class="main-banner">
-        <img src="images/paz-banner.jpg" alt="Zenith Summit" class="responsive-img">
-    </section>
-
-    <section id="hakkimizda" class="about-section">
-        <div class="about-container">
-            <div class="about-text">
-                <h2>Biz Kimiz?</h2>
-                <p>Zirve kadar keskin, atmosfer kadar derin projeler üreten bağımsız bir oyun stüdyosuyuz. PAZ Studio çatısı altında, oyuncuları benzersiz dünyaların ve gerilim dolu hikayelerin içine çekmeyi hedefliyoruz.</p>
+        <header class="main-header">
+            <div class="logo-container">
+                <img src="images/paz-logo-beyaz.png" alt="PAZ Studio Logo" class="site-logo">
             </div>
-            <div class="about-image">
-                <img src="images/paz-hakkinda-gorseli.jpg" alt="Hakkımızda Görseli" class="responsive-img">
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#hakkimizda">Hakkımızda</a></li>
+                    <li><a href="#projeler">Projeler</a></li>
+                    <li><a href="/murtaza-halac">Geliştirici</a></li>
+                    <li><a href="#iletisim">İletişim</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="main-banner">
+            <img src="images/paz-banner.jpg" alt="Zenith Summit" class="responsive-img">
+        </section>
+
+        <section id="hakkimizda" class="about-section">
+            <div class="about-container">
+                <div class="about-text">
+                    <h2>Biz Kimiz?</h2>
+                    <p>Zirve kadar keskin, atmosfer kadar derin projeler üreten bağımsız bir oyun stüdyosuyuz. PAZ Studio çatısı altında, oyuncuları benzersiz dünyaların ve gerilim dolu hikayelerin içine çekmeyi hedefliyoruz.</p>
+                </div>
+                <div class="about-image">
+                    <img src="images/paz-hakkinda-gorseli.jpg" alt="Hakkımızda Görseli" class="responsive-img">
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="projeler" class="gallery-section">
-        <h2>Geliştirme Aşamasından Kareler</h2>
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="images/paz-tasarim1.png" alt="Project Screenshot 1"></div>
-            <div class="gallery-item"><img src="images/paz-tasarim2.png" alt="Project Screenshot 2"></div>
-            <div class="gallery-item"><img src="images/paz-tasarim3.png" alt="Project Screenshot 3"></div>
-        </div>
-    </section>
+        <section id="projeler" class="gallery-section">
+            <h2>Geliştirme Aşamasından Kareler</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="images/paz-tasarim1.png" alt="Project Screenshot 1"></div>
+                <div class="gallery-item"><img src="images/paz-tasarim2.png" alt="Project Screenshot 2"></div>
+                <div class="gallery-item"><img src="images/paz-tasarim3.png" alt="Project Screenshot 3"></div>
+            </div>
+        </section>
 
-  <footer id="iletisim" class="main-footer">
-        <div class="footer-content">
-            <p>Bizimle İletişime Geçin</p>
-           <div class="contact-links">
-    <a href="https://www.instagram.com/p.a.z.studio" target="_blank">Instagram</a>
-    <a href="https://wa.me/905527324146" target="_blank">WhatsApp</a>
-        </div>
-        </div>
-    </footer>
+        <footer id="iletisim" class="main-footer">
+            <div class="footer-content">
+                <p>Bizimle İletişime Geçin</p>
+               <div class="contact-links">
+        <a href="https://www.instagram.com/p.a.z.studio" target="_blank">Instagram</a>
+        <a href="https://wa.me/905527324146" target="_blank">WhatsApp</a>
+            </div>
+            </div>
+        </footer>
+    </div> <!-- Site content bitişi -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
     <script>
-        // Sayfa yüklendiğinde elemanların süzülerek gelmesi
-        const tl = gsap.timeline();
-        tl.from(".top-header-banner", { opacity: 0, y: -50, duration: 1, ease: "power3.out" })
-          .from(".main-header", { opacity: 0, y: -20, duration: 0.8 }, "-=0.5")
-          .from(".main-banner", { opacity: 0, scale: 1.05, duration: 1.5, ease: "power2.out" }, "-=0.8");
+        // SİNEMATİK AÇILIŞ (GSAP) ANİMASYONLARI
+        const introTl = gsap.timeline();
+
+        // 1. Aşama: Karanlıkta gözler belirsizce ortaya çıkar (Soluk kırmızı)
+        introTl.to(".eyes-container", { opacity: 0.3, duration: 1, ease: "power2.inOut" })
+        
+        // 2. Aşama: Gözler aniden parlar ve irileşir (Açılma efekti)
+        .to(".eyes-container", { opacity: 1, duration: 0.5, ease: "power4.out" })
+        .to(".eye", { height: "45px", duration: 0.8, ease: "elastic.out(1, 0.3)" }, "<") // Gözler irileşir
+        
+        // 3. Aşama: Gözler hafifçe kısılır (Sana bakıyor hissi)
+        .to(".eye", { height: "25px", duration: 1.5, ease: "power2.inOut", delay: 0.5 })
+        
+        // 4. Aşama: Gözler kararır ve Siyah Perde eriyerek kaybolur
+        .to(".eyes-container", { opacity: 0, duration: 0.5, ease: "power2.in" })
+        .to("#intro-screen", { opacity: 0, duration: 1.5, ease: "power3.inOut" })
+        
+        // 5. Aşama: Perde tamamen yok olduktan sonra sitenin kendi animasyonları başlar
+        .to(".site-content", { opacity: 1, duration: 0.5 }, "-=1") // Site görünür olur
+        .from(".top-header-banner", { opacity: 0, y: -50, duration: 1, ease: "power3.out" }, "-=0.5")
+        .from(".main-header", { opacity: 0, y: -20, duration: 0.8 }, "-=0.5")
+        .from(".main-banner", { opacity: 0, scale: 1.05, duration: 1.5, ease: "power2.out" }, "-=0.8")
+        
+        // Animasyon bitince siyah perdeyi tıklanabilirliği engellemesin diye DOM'dan gizle
+        .add(() => { document.getElementById("intro-screen").style.display = "none"; });
     </script>
 </body>
 </html>
