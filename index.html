@@ -10,14 +10,13 @@
     <style>
         /* SİNETMATİK AÇILIŞ (INTRO) EKRANI CSS KODLARI */
         
-        /* 1. Siyah Perde */
         #intro-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #000000;
+            background-color: #030000; /* Zifiri karanlığa yakın çok koyu bir kızıl/siyah */
             z-index: 9999;
             display: flex;
             justify-content: center;
@@ -26,64 +25,63 @@
             pointer-events: none;
         }
 
-        /* 2. Gözlerin Konteyneri */
         .eyes-container {
             display: flex;
-            gap: 50px; /* İki göz arasındaki mesafe */
+            gap: 40px; 
             opacity: 0; 
+            transform: translateY(15px);
         }
 
-        /* 3. Keskin Anime Göz Tasarımı */
+        /* Keskin Sukuna Göz Tasarımı */
         .eye {
-            width: 180px; /* Gözler oldukça büyütüldü */
-            height: 5px; /* Başlangıçta incecik kapalı bir çizgi */
-            background: radial-gradient(ellipse at center, #ff3333 0%, #aa0000 60%, #220000 100%);
+            width: 180px; 
+            height: 2px; /* Karanlıkta sadece ince bir çizgi olarak başlar */
+            background: radial-gradient(ellipse at center, #ff0000 0%, #aa0000 70%, #220000 100%);
             box-shadow: 
-                0 0 30px #ff0000, 
-                0 0 70px #cc0000, 
-                inset 0 0 20px #000000;
+                0 0 25px #ff0000, 
+                0 0 60px #cc0000, 
+                inset 0 0 15px rgba(0,0,0,0.8);
             position: relative;
-            overflow: hidden; /* Göz bebeği dışarı taşmasın */
+            overflow: hidden; 
         }
 
-        /* Sol Göz: Sağ üst ve sol alt köşeleri sivriltilmiş, sola yatık */
+        /* Sol Göz: İç köşesi (sağ taraf) aşağıya sertçe baksın */
         .left-eye {
-            border-radius: 100% 0px; 
-            transform: rotate(-12deg);
+            border-radius: 100% 0 100% 0; 
+            transform: rotate(13deg);
         }
 
-        /* Sağ Göz: Sol üst ve sağ alt köşeleri sivriltilmiş, sağa yatık */
+        /* Sağ Göz: İç köşesi (sol taraf) aşağıya sertçe baksın */
         .right-eye {
-            border-radius: 0px 100%;
-            transform: rotate(12deg);
+            border-radius: 0 100% 0 100%;
+            transform: rotate(-13deg);
         }
 
-        /* 4. Keskin Dikey Göz Bebekleri */
+        /* İnce, Dikey Yırtıcı Göz Bebekleri */
         .eye::after {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 8px; /* İncecik yırtıcı göz bebeği */
-            height: 75%; 
+            width: 10px; 
+            height: 80px; 
             background-color: #000;
             border-radius: 50%;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
+            box-shadow: 0 0 12px rgba(255, 0, 0, 0.9);
         }
 
-        /* Gözler açılı durduğu için göz bebeklerini tam dik duracak şekilde tersine çeviriyoruz */
-        .left-eye::after { transform: translate(-50%, -50%) rotate(12deg); }
-        .right-eye::after { transform: translate(-50%, -50%) rotate(-12deg); }
+        /* Gözler açılı olduğu için bebekleri tam dik duracak şekilde tersine döndürüyoruz */
+        .left-eye::after { transform: translate(-50%, -50%) rotate(-13deg); }
+        .right-eye::after { transform: translate(-50%, -50%) rotate(13deg); }
 
         /* MOBİL UYUM (Responsive) */
         @media (max-width: 768px) {
             .eyes-container {
-                /* Mobilde gözleri ve aralığını orantılı bir şekilde %60 oranına küçültür */
-                transform: scale(0.6); 
+                transform: scale(0.5) translateY(15px); 
+                gap: 20px;
             }
         }
 
-        /* Sitenin asıl içeriği intro bitene kadar görünmesin */
         .site-content {
             opacity: 0;
         }
@@ -160,18 +158,18 @@
     <script>
         const introTl = gsap.timeline();
 
-        // 1. Karanlıkta gözler kızararak belirir
-        introTl.to(".eyes-container", { opacity: 0.4, duration: 1.2, ease: "power2.inOut" })
+        // 1. Karanlıkta gözler kızararak belirir ve hafifçe yukarı kalkar
+        introTl.to(".eyes-container", { opacity: 0.7, y: 0, duration: 1.5, ease: "power2.out" })
         
-        // 2. Gözler aniden ve öfkeyle kocaman açılır
-        .to(".eyes-container", { opacity: 1, duration: 0.3, ease: "power4.out" })
-        .to(".eye", { height: "80px", duration: 0.8, ease: "elastic.out(1.2, 0.4)" }, "<") 
+        // 2. Gözler aniden tehlikeli bir şekilde açılır (Çok fazla açılmıyor, kısık ve tehditkâr kalıyor)
+        .to(".eyes-container", { opacity: 1, duration: 0.1, ease: "power4.out" })
+        .to(".eye", { height: "45px", duration: 0.6, ease: "elastic.out(1.2, 0.4)" }, "<") 
         
-        // 3. Gözler tehlikeli bir şekilde kısılır
-        .to(".eye", { height: "30px", duration: 1.5, ease: "power2.inOut", delay: 0.6 })
+        // 3. Gözler hedefe kilitlenip daha da kısılır
+        .to(".eye", { height: "22px", duration: 1.2, ease: "power2.inOut", delay: 0.6 })
         
         // 4. Karanlığa gömülüp kaybolurlar
-        .to(".eyes-container", { opacity: 0, duration: 0.5, ease: "power2.in" })
+        .to(".eyes-container", { opacity: 0, duration: 0.6, ease: "power2.in" })
         .to("#intro-screen", { opacity: 0, duration: 1.5, ease: "power3.inOut" })
         
         // 5. Site içerikleri süzülerek ekrana gelir
