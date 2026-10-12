@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="images/faviconn.png">
     
     <style>
-        /* SİNETMATİK AÇILIŞ (INTRO) EKRANI CSS KODLARI */
+        /* SİNETMATİK AÇILIŞ (INTRO) EKRANI */
         
         #intro-screen {
             position: fixed;
@@ -16,69 +16,91 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #030000; /* Zifiri karanlığa yakın çok koyu bir kızıl/siyah */
+            background-color: #000000; /* Zifiri karanlık arka plan */
             z-index: 9999;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            pointer-events: none;
         }
 
         .eyes-container {
             display: flex;
-            gap: 40px; 
+            gap: 60px; /* İki göz arasındaki mesafe */
             opacity: 0; 
-            transform: translateY(15px);
         }
 
-        /* Keskin Sukuna Göz Tasarımı */
+        /* Düz Çizgili ve Sert Açılı Göz Çerçevesi */
         .eye {
-            width: 180px; 
-            height: 2px; /* Karanlıkta sadece ince bir çizgi olarak başlar */
-            background: radial-gradient(ellipse at center, #ff0000 0%, #aa0000 70%, #220000 100%);
-            box-shadow: 
-                0 0 25px #ff0000, 
-                0 0 60px #cc0000, 
-                inset 0 0 15px rgba(0,0,0,0.8);
+            width: 160px;
+            height: 0px; /* Karanlıkta görünmez bir çizgi olarak başlar */
+            background-color: #050000; /* Gözün iç arka planı */
             position: relative;
-            overflow: hidden; 
+            overflow: hidden; /* Göz bebeği dışarı taşmasın diye */
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.3); /* Dışarıya hafif kan kırmızısı bir parlama */
+            border-radius: 4px; /* Köşelerdeki piksel kırılmasını önlemek için çok hafif yumuşatma */
         }
 
-        /* Sol Göz: İç köşesi (sağ taraf) aşağıya sertçe baksın */
+        /* Sol Göz: İç köşesi aşağı, dış köşesi yukarı bakacak şekilde sert bir açı */
         .left-eye {
-            border-radius: 100% 0 100% 0; 
-            transform: rotate(13deg);
+            transform: rotate(10deg);
         }
 
-        /* Sağ Göz: İç köşesi (sol taraf) aşağıya sertçe baksın */
+        /* Sağ Göz: İç köşesi aşağı, dış köşesi yukarı bakacak şekilde sert bir açı */
         .right-eye {
-            border-radius: 0 100% 0 100%;
-            transform: rotate(-13deg);
+            transform: rotate(-10deg);
         }
 
-        /* İnce, Dikey Yırtıcı Göz Bebekleri */
-        .eye::after {
-            content: '';
+        /* İris ve Göz Bebeğinin İç Konteyneri (Düz durması için ters açı veriyoruz) */
+        .iris-container {
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 10px; 
-            height: 80px; 
-            background-color: #000;
+            width: 80px;
+            height: 80px;
+        }
+        
+        .left-eye .iris-container { transform: translate(-50%, -50%) rotate(-10deg); }
+        .right-eye .iris-container { transform: translate(-50%, -50%) rotate(10deg); }
+
+        /* Kırmızı İris */
+        .iris {
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
-            box-shadow: 0 0 12px rgba(255, 0, 0, 0.9);
+            background: radial-gradient(circle, #ff4444 0%, #cc0000 50%, #440000 100%);
+            box-shadow: 0 0 30px #ff0000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* Gözler açılı olduğu için bebekleri tam dik duracak şekilde tersine döndürüyoruz */
-        .left-eye::after { transform: translate(-50%, -50%) rotate(-13deg); }
-        .right-eye::after { transform: translate(-50%, -50%) rotate(13deg); }
+        /* Yuvarlak Siyah Göz Bebeği */
+        .pupil {
+            width: 22px;
+            height: 22px;
+            background-color: #000000;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        /* Göz Bebeğinin Kenarındaki Hafif Beyaz Işık Yansıması */
+        .reflection {
+            width: 6px;
+            height: 6px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            box-shadow: 0 0 8px #ffffff;
+        }
 
         /* MOBİL UYUM (Responsive) */
         @media (max-width: 768px) {
             .eyes-container {
-                transform: scale(0.5) translateY(15px); 
-                gap: 20px;
+                transform: scale(0.55); 
+                gap: 30px;
             }
         }
 
@@ -92,8 +114,24 @@
     <!-- SİNEMATİK AÇILIŞ (INTRO) EKRANI -->
     <div id="intro-screen">
         <div class="eyes-container">
-            <div class="eye left-eye"></div>
-            <div class="eye right-eye"></div>
+            <div class="eye left-eye">
+                <div class="iris-container">
+                    <div class="iris">
+                        <div class="pupil">
+                            <div class="reflection"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="eye right-eye">
+                <div class="iris-container">
+                    <div class="iris">
+                        <div class="pupil">
+                            <div class="reflection"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -146,9 +184,9 @@
             <div class="footer-content">
                 <p>Bizimle İletişime Geçin</p>
                <div class="contact-links">
-        <a href="https://www.instagram.com/p.a.z.studio" target="_blank">Instagram</a>
-        <a href="https://wa.me/905527324146" target="_blank">WhatsApp</a>
-            </div>
+                    <a href="https://www.instagram.com/p.a.z.studio" target="_blank">Instagram</a>
+                    <a href="https://wa.me/905527324146" target="_blank">WhatsApp</a>
+                </div>
             </div>
         </footer>
     </div> 
@@ -158,28 +196,25 @@
     <script>
         const introTl = gsap.timeline();
 
-        // 1. Karanlıkta gözler kızararak belirir ve hafifçe yukarı kalkar
-        introTl.to(".eyes-container", { opacity: 0.7, y: 0, duration: 1.5, ease: "power2.out" })
+        // 1. Gözler karanlıkta pürüzsüzce belirir ve yavaşça açılır (Zıplama yok)
+        introTl.to(".eyes-container", { opacity: 1, duration: 0.8, ease: "power2.inOut", delay: 0.3 })
+        .to(".eye", { height: "55px", duration: 1.2, ease: "power3.inOut" }, "<") 
         
-        // 2. Gözler aniden tehlikeli bir şekilde açılır (Çok fazla açılmıyor, kısık ve tehditkâr kalıyor)
-        .to(".eyes-container", { opacity: 1, duration: 0.1, ease: "power4.out" })
-        .to(".eye", { height: "45px", duration: 0.6, ease: "elastic.out(1.2, 0.4)" }, "<") 
+        // 2. Sana kilitlenmiş gibi hafifçe ve yavaşça kısılır
+        .to(".eye", { height: "35px", duration: 1.5, ease: "power2.inOut", delay: 0.8 })
         
-        // 3. Gözler hedefe kilitlenip daha da kısılır
-        .to(".eye", { height: "22px", duration: 1.2, ease: "power2.inOut", delay: 0.6 })
+        // 3. Pürüzsüzce karanlığa gömülüp kaybolurlar
+        .to(".eyes-container", { opacity: 0, duration: 0.8, ease: "power2.inOut" })
+        .to("#intro-screen", { opacity: 0, duration: 1.5, ease: "power2.inOut" })
         
-        // 4. Karanlığa gömülüp kaybolurlar
-        .to(".eyes-container", { opacity: 0, duration: 0.6, ease: "power2.in" })
-        .to("#intro-screen", { opacity: 0, duration: 1.5, ease: "power3.inOut" })
+        // 4. Site içerikleri yavaşça aydınlanarak ekrana gelir
+        .to(".site-content", { opacity: 1, duration: 1 }, "-=1") 
+        .from(".top-header-banner", { opacity: 0, y: -30, duration: 1.2, ease: "power2.out" }, "-=0.5")
+        .from(".main-header", { opacity: 0, y: -20, duration: 1 }, "-=0.8")
+        .from(".main-banner", { opacity: 0, scale: 1.02, duration: 1.5, ease: "power2.out" }, "-=1");
         
-        // 5. Site içerikleri süzülerek ekrana gelir
-        .to(".site-content", { opacity: 1, duration: 0.5 }, "-=1") 
-        .from(".top-header-banner", { opacity: 0, y: -50, duration: 1, ease: "power3.out" }, "-=0.5")
-        .from(".main-header", { opacity: 0, y: -20, duration: 0.8 }, "-=0.5")
-        .from(".main-banner", { opacity: 0, scale: 1.05, duration: 1.5, ease: "power2.out" }, "-=0.8")
-        
-        // Animasyon bitince siyah perdeyi aradan kaldır
-        .add(() => { document.getElementById("intro-screen").style.display = "none"; });
+        // Animasyon bittiğinde siyah perdeyi tıkla geçilebilsin diye gizle
+        introTl.add(() => { document.getElementById("intro-screen").style.display = "none"; });
     </script>
 </body>
 </html>
