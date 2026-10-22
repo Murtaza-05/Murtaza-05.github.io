@@ -206,22 +206,34 @@
             border-radius: 8px;
             border: 1px solid var(--border-color);
             display: none; 
-            background-color: var(--card-bg); /* Video yüklenmeden önce siyah boşluk olmaması için */
+            background-color: var(--card-bg);
         }
 
         .gallery-item.show { display: block; animation: fadeInUp 0.5s ease; }
 
-        /* GÖRSEL VE VİDEO ORTAK AYARLARI */
-        .gallery-item img, .gallery-item video {
+        /* SADECE RESİMLER İÇİN AYARLAR */
+        .gallery-item img {
             width: 100%;
             height: 250px;
             object-fit: cover;
             display: block;
             transition: transform 0.5s;
+            cursor: pointer;
         }
 
-        .gallery-item img {
-            cursor: pointer;
+        /* VİDEOLAR İÇİN ORTAK AYAR (YATAY PC VİDEOSU VARSAYILAN) */
+        .gallery-item video {
+            width: 100%;
+            height: 250px;
+            object-fit: contain; /* Yazıların kesilmesini %100 engeller */
+            background-color: #000; /* Kesilmeyen alanları siyah perdeyle kapatır */
+            display: block;
+            transition: transform 0.5s;
+        }
+
+        /* YENİ: REELS VİDEOLARI İÇİN ÖZEL DİKEY BOYUT */
+        .gallery-item.reels-video video {
+            height: 500px; /* Dikey olduğu için boyunu iki katına çıkardık */
         }
 
         /* Video hover efekti resme göre biraz daha yumuşaktır ki oynatma tuşu dışarı taşmasın */
@@ -416,46 +428,48 @@
             </div>
         </div>
 
-        <!-- YENİ: VİDEO VE ANİMASYONLAR BÖLÜMÜ -->
+        <!-- VİDEO VE ANİMASYONLAR BÖLÜMÜ -->
         <h3 style="margin-top: 60px;">Video ve Animasyonlar</h3>
         
         <div class="gallery-grid">
             
-            <!-- 1. Video -->
-            <div class="gallery-item show">
-                <!-- Video kaynağını "src" içine yaz. controls kodu oynatma tuşlarını getirir. muted kodu sessiz başlatır -->
-                <video src="videos/Peakrty.mp4" controls muted preload="metadata"></video>
-                <div class="item-info video-info">
-                    <h4>Hareketli Grafik (Motion Graphic)</h4>
-                    <p>Peaktry After Effects ile hazırlanmış story animasyon.</p>
-                </div>
-            </div>
-
-            <!-- 2. Video -->
-            <div class="gallery-item show">
+            <!-- 1. Video (REELS FORMATI İÇİN 'reels-video' EKLENDİ) -->
+            <div class="gallery-item show reels-video">
                 <video src="videos/İnstagram ST 5 (Sound).mp4" controls muted preload="metadata"></video>
                 <div class="item-info video-info">
-                    <h4>Hareketli Grafik (Motion Graphic)</h4>
-                    <p>Peaktry After Effects ile hazırlanmış story animasyon.</p>
+                    <h4>Peaktry motion story</h4>
+                    <p>Dikey formatta hazırlanmış animasyon.</p>
                 </div>
             </div>
 
-            <!-- 3. Video -->
-            <div class="gallery-item show">
-                <video src="videos/DepoSavaşları_Reels_Denemesi.mp4" controls muted preload="metadata"></video>
+            <!-- 2. Video (REELS FORMATI İÇİN 'reels-video' EKLENDİ) -->
+            <div class="gallery-item show reels-video">
+                <video src="videos/ornek_animasyon2.mp4" controls muted preload="metadata"></video>
                 <div class="item-info video-info">
-                    <h4>Reels videosu.</h4>
-                    <p>Youtuber için hazırlanmış örnek reels videosu.</p>
+                    <h4>Peaktry motion story</h4>
+                    <p>Dikey formatta hazırlanmış hareketli grafik.</p>
                 </div>
             </div>
-            <!-- 4. Video -->
-            <div class="gallery-item show">
-                <video src="videos/Main_1.mp4" controls muted preload="metadata"></video>
+
+            <!-- 3. Video (REELS FORMATI İÇİN 'reels-video' EKLENDİ) -->
+            <div class="gallery-item show reels-video">
+                <video src="videos/ornek_animasyon3.mp4" controls muted preload="metadata"></video>
                 <div class="item-info video-info">
-                    <h4>Oyun İçi Kamera Açısı</h4>
-                    <p>Peaktry After Effects ile hazırlanmış story animasyon.</p>
+                    <h4>Peaktry motion story</h4>
+                    <p>Peaktry motion story</p>
                 </div>
             </div>
+            
+            <!-- (İsteğe Bağlı) EĞER YATAY BİR PC VİDEOSU EKLERSEN BU ŞEKİLDE KULLANABİLİRSİN: -->
+            <!-- 
+            <div class="gallery-item show">
+                <video src="videos/yatay-video.mp4" controls muted preload="metadata"></video>
+                <div class="item-info video-info">
+                    <h4>PC Oyunu Fragmanı</h4>
+                    <p>Yatay ekrana tam oturan standart video formatı.</p>
+                </div>
+            </div> 
+            -->
 
         </div>
 
@@ -488,7 +502,6 @@
     </div>
 
     <script>
-        // Galeri Filtreleme Sistemi 
         function filterGallery(category) {
             const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
@@ -504,11 +517,9 @@
             });
         }
 
-        // Lightbox (Görsel Büyütme) Sistemi
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
 
-        // Lightbox'ın sadece IMG (resim) etiketlerinde çalışmasını sağlıyoruz ki videolara tıklandığında hata vermesin
         document.querySelectorAll('.gallery-item img').forEach(image => {
             image.addEventListener('click', function() {
                 lightboxImg.src = this.src; 
