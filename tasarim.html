@@ -113,7 +113,7 @@
             padding-bottom: 10px;
             margin-bottom: 30px;
             color: var(--accent-color);
-            text-align: center; /* Başlıklar ortalandı */
+            text-align: center; 
         }
 
         /* KARTLAR - METİNLER ORTALANDI */
@@ -124,7 +124,7 @@
             padding: 20px;
             margin-bottom: 20px;
             transition: transform 0.3s, box-shadow 0.3s;
-            text-align: center; /* Kart içindeki metinler ortalandı */
+            text-align: center; 
         }
 
         .card:hover {
@@ -206,34 +206,51 @@
             border-radius: 8px;
             border: 1px solid var(--border-color);
             display: none; 
+            background-color: var(--card-bg); /* Video yüklenmeden önce siyah boşluk olmaması için */
         }
 
         .gallery-item.show { display: block; animation: fadeInUp 0.5s ease; }
 
-        .gallery-item img {
+        /* GÖRSEL VE VİDEO ORTAK AYARLARI */
+        .gallery-item img, .gallery-item video {
             width: 100%;
             height: 250px;
             object-fit: cover;
             display: block;
             transition: transform 0.5s;
+        }
+
+        .gallery-item img {
             cursor: pointer;
         }
 
+        /* Video hover efekti resme göre biraz daha yumuşaktır ki oynatma tuşu dışarı taşmasın */
         .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-item:hover video { transform: scale(1.03); }
 
+        /* STANDART RESİM BİLGİ KUTUSU (Aşağıdan Çıkar) */
         .item-info {
             position: absolute;
             bottom: 0;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.85);
             width: 100%;
             padding: 15px;
             transform: translateY(100%);
             transition: transform 0.3s;
             pointer-events: none;
-            text-align: left; /* Kutudaki açıklamalar soldan hizalı kalmalı */
+            text-align: left; 
         }
-
         .gallery-item:hover .item-info { transform: translateY(0); }
+
+        /* VİDEO BİLGİ KUTUSU (Yukarıdan Çıkar ki Oynatma Tuşunu Kapatmasın) */
+        .video-info {
+            top: 0;
+            bottom: auto;
+            transform: translateY(-100%);
+            border-bottom: 1px solid var(--accent-color);
+        }
+        .gallery-item:hover .video-info { transform: translateY(0); }
+
 
         /* LIGHTBOX (BÜYÜTÜLMÜŞ GÖRSEL) SİSTEMİ */
         #lightbox {
@@ -323,6 +340,7 @@
             <a href="/web" class="filter-btn" style="text-decoration: none; display: inline-block;">Web & E-Ticaret</a>
         </div>
 
+        <!-- RESİM GALERİSİ -->
         <div class="gallery-grid">
             
             <div class="gallery-item show">
@@ -374,47 +392,7 @@
             </div>
 
             <div class="gallery-item show">
-                <img src="images/mobil-banner-medikoz.png" alt="Banner Tasarımı">
-                <div class="item-info">
-                    <h4>Banner Tasarımı</h4>
-                    <p>Medikoz için banner tasarımı.</p>
-                </div>
-            </div>
-
-            <div class="gallery-item show">
-                <img src="images/mobil-banner-phformula.png" alt="Banner Tasarımı">
-                <div class="item-info">
-                    <h4>Banner Tasarımı</h4>
-                    <p>PH Formula için banner tasarımı.</p>
-                </div>
-            </div>
-
-            <div class="gallery-item show">
-                <img src="images/mobil-banner-theraderm.png" alt="Banner Tasarımı">
-                <div class="item-info">
-                    <h4>Banner Tasarımı</h4>
-                    <p>Theraderm için banner tasarımı.</p>
-                </div>
-            </div>
-
-            <div class="gallery-item show">
                 <img src="images/post-paket1.png" alt="Paket Tasarımı">
-                <div class="item-info">
-                    <h4>Paket Tasarımı</h4>
-                    <p>İnstagram post: paket tasarımı.</p>
-                </div>
-            </div>
-            
-            <div class="gallery-item show">
-                <img src="images/post-paket2.png" alt="Paket Tasarımı">
-                <div class="item-info">
-                    <h4>Paket Tasarımı</h4>
-                    <p>İnstagram post: paket tasarımı.</p>
-                </div>
-            </div>
-
-            <div class="gallery-item show">
-                <img src="images/post-paket3.png" alt="Paket Tasarımı">
                 <div class="item-info">
                     <h4>Paket Tasarımı</h4>
                     <p>İnstagram post: paket tasarımı.</p>
@@ -436,6 +414,49 @@
                     <p>İnstagram post: post tasarımı.</p>
                 </div>
             </div>
+        </div>
+
+        <!-- YENİ: VİDEO VE ANİMASYONLAR BÖLÜMÜ -->
+        <h3 style="margin-top: 60px;">Video ve Animasyonlar</h3>
+        
+        <div class="gallery-grid">
+            
+            <!-- 1. Video -->
+            <div class="gallery-item show">
+                <!-- Video kaynağını "src" içine yaz. controls kodu oynatma tuşlarını getirir. muted kodu sessiz başlatır -->
+                <video src="videos/Peakrty.mp4" controls muted preload="metadata"></video>
+                <div class="item-info video-info">
+                    <h4>Hareketli Grafik (Motion Graphic)</h4>
+                    <p>Peaktry After Effects ile hazırlanmış story animasyon.</p>
+                </div>
+            </div>
+
+            <!-- 2. Video -->
+            <div class="gallery-item show">
+                <video src="videos/İnstagram ST 5 (Sound).mp4" controls muted preload="metadata"></video>
+                <div class="item-info video-info">
+                    <h4>Hareketli Grafik (Motion Graphic)</h4>
+                    <p>Peaktry After Effects ile hazırlanmış story animasyon.</p>
+                </div>
+            </div>
+
+            <!-- 3. Video -->
+            <div class="gallery-item show">
+                <video src="videos/DepoSavaşları_Reels_Denemesi.mp4" controls muted preload="metadata"></video>
+                <div class="item-info video-info">
+                    <h4>Reels videosu.</h4>
+                    <p>Youtuber için hazırlanmış örnek reels videosu.</p>
+                </div>
+            </div>
+            <!-- 4. Video -->
+            <div class="gallery-item show">
+                <video src="videos/Main_1.mp4" controls muted preload="metadata"></video>
+                <div class="item-info video-info">
+                    <h4>Oyun İçi Kamera Açısı</h4>
+                    <p>Peaktry After Effects ile hazırlanmış story animasyon.</p>
+                </div>
+            </div>
+
         </div>
 
         <h3 style="margin-top: 60px;">Bağlantılar</h3>
@@ -467,7 +488,7 @@
     </div>
 
     <script>
-        // Galeri Filtreleme Sistemi (Diğer sayfalarda kullanılmak üzere)
+        // Galeri Filtreleme Sistemi 
         function filterGallery(category) {
             const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
@@ -487,6 +508,7 @@
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
 
+        // Lightbox'ın sadece IMG (resim) etiketlerinde çalışmasını sağlıyoruz ki videolara tıklandığında hata vermesin
         document.querySelectorAll('.gallery-item img').forEach(image => {
             image.addEventListener('click', function() {
                 lightboxImg.src = this.src; 
